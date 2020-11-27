@@ -4,7 +4,8 @@ const render = new Render();
 
 
 countAllAlbums();
-fetchAlbumList();
+
+fetchAlbumsByPage(2);
 
 async function countAllAlbums() {
     const res = await fetch('/api/albums/count');
@@ -16,6 +17,7 @@ async function countAllAlbums() {
 
     const data = await res.json();
     render.renderTotalQty(data);
+
 }
 
 async function fetchAlbumList() {
@@ -29,6 +31,8 @@ async function fetchAlbumList() {
     const data = await res.json();
 
     render.renderAlbumList(data);
+
+
 }
 
 async function fetchAlbumById() {
@@ -47,3 +51,16 @@ async function fetchAlbumById() {
 
     console.log('Name of a Album #2: ' + data.Title);
 }
+
+async function fetchAlbumsByPage(page) {
+
+    const res = await fetch(`api/albums/pagination/${page}`);
+
+    if (!res.ok || res.status !== 200) {
+        console.log(`Fetch error on page ${page}: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    render.renderAlbumList(data);
+};

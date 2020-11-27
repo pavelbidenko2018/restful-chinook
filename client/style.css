@@ -19,3 +19,13 @@ h1 span {
     font-size: .6em;
     color: chocolate;
 }
+
+ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+}
+
+ul li {
+    margin-right: 6px;
+}

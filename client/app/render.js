@@ -1,11 +1,25 @@
 export class Render {
 
     renderTotalQty = (qty) => {
-        const albumsTableTotalQty = document.getElementById('tableHeader');
-        const span = document.createElement('span');
-        span.innerText = `(${qty})`;
+        const albumsTableTotalQty = $('#tableHeader');
+        const span = $('<span></span>').text(`${qty}`);
 
-        albumsTableTotalQty.appendChild(span);
+        albumsTableTotalQty.append(span);
+
+        let numberOfPages = Math.floor(qty / 10);
+        const restOfItems = qty - numberOfPages * 10;
+        if (restOfItems > 0) {
+            numberOfPages += 1;
+        }
+
+        const ul = $('#pageCounter');
+
+        for (let i = 1; i <= numberOfPages; i++) {
+
+            let li = $('<li></li>').text(`${i}`);
+
+            ul.append(li);
+        }
 
 
     }

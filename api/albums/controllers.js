@@ -1,5 +1,7 @@
 const db = require('../db-connection');
 
+const LIMIT = 10;
+
 const controllers = {
     getAll: (req, res) => {
 
@@ -27,6 +29,23 @@ const controllers = {
             res.json(row.qty);
         })
     },
+    /* END OF REQUEST */
+
+    /* GET PAGE BY NUMBER */
+    getPageByNo: (req, res) => {
+
+        const page = req.params.page - 1;
+        const sql = 'SELECT  * FROM albums LIMIT 10,?';
+
+        db.all(sql, page * LIMIT, (err, rows) => {
+            if (err) {
+                res.status(400).json({ "error": err.message });
+                return;
+            }
+            res.json(rows);
+        })
+    },
+
     /* END OF REQUEST */
 
 
