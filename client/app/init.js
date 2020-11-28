@@ -5,7 +5,7 @@ const render = new Render();
 
 countAllAlbums();
 
-fetchAlbumsByPage(2);
+fetchAlbumsByPage(1);
 
 async function countAllAlbums() {
     const res = await fetch('/api/albums/count');
@@ -16,7 +16,7 @@ async function countAllAlbums() {
     }
 
     const data = await res.json();
-    render.renderTotalQty(data);
+    render.renderTotalQty(data, fetchAlbumsByPage);
 
 }
 

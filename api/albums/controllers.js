@@ -35,7 +35,7 @@ const controllers = {
     getPageByNo: (req, res) => {
 
         const page = req.params.page - 1;
-        const sql = 'SELECT  * FROM albums LIMIT 10,?';
+        const sql = 'SELECT  * FROM albums LIMIT 10 OFFSET ?';
 
         db.all(sql, page * LIMIT, (err, rows) => {
             if (err) {

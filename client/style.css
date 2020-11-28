@@ -28,4 +28,6 @@ ul {
 
 ul li {
     margin-right: 6px;
+    cursor: pointer;
+    text-decoration: underline;
 }

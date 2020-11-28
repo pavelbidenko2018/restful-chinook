@@ -1,6 +1,6 @@
 export class Render {
 
-    renderTotalQty = (qty) => {
+    renderTotalQty = (qty, fetchAlbumsByPage) => {
         const albumsTableTotalQty = $('#tableHeader');
         const span = $('<span></span>').text(`${qty}`);
 
@@ -16,7 +16,7 @@ export class Render {
 
         for (let i = 1; i <= numberOfPages; i++) {
 
-            let li = $('<li></li>').text(`${i}`);
+            let li = $('<li></li>').text(`${i}`).click(() => fetchAlbumsByPage(`${i}`));
 
             ul.append(li);
         }
@@ -25,7 +25,10 @@ export class Render {
     }
 
     renderAlbumList = (albumList) => {
+
         const table = $('#albumList');
+        table.empty();
+
         table.append($('<thead></thead>').append($('<tr></tr>').append($('<th></th>').attr('scope', 'col').text('#'), $('<th></th>').attr('scope', 'col').text('Title'))));
 
         const tbody = $('<tbody></tbody>');
