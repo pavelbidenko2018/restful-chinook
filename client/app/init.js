@@ -1,66 +1,141 @@
-import { Render } from './render.js';
+import { Render } from "./render.js";
 
-const render = new Render();
+const tablesContainer = document.getElementById("main-header");
+const tableHeader = document.getElementById("tableHeader");
 
+/* 
+	on page load, the following code will run(Albums is the default table)
 
-countAllAlbums();
+*/
+window.onload = function () {
+	let render = new Render();
+	countAllTables();
 
-fetchAlbumsByPage(1);
+	fetchTablesByPage(1);
 
-async function countAllAlbums() {
-    const res = await fetch('/api/albums/count');
+	async function countAllTables() {
+		const res = await fetch("/api/Albums/count");
 
-    if (!res.ok || res.status !== 200) {
-        console.log(`Data fetch error: ${res.status}`);
-        return;
-    }
+		if (!res.ok || res.status !== 200) {
+			console.log(`Data fetch error: ${res.status}`);
+			return;
+		}
 
-    const data = await res.json();
-    render.renderTotalQty(data, fetchAlbumsByPage);
+		const data = await res.json();
+		render.renderTotalQty(data, fetchTablesByPage);
+	}
 
-}
+	async function fetchTableList() {
+		const res = await fetch("/api/Albums");
 
-async function fetchAlbumList() {
-    const res = await fetch('/api/albums');
+		if (!res.ok || res.status !== 200) {
+			console.log(`Data fetch error: ${res.status}`);
+			return;
+		}
 
-    if (!res.ok || res.status !== 200) {
-        console.log(`Data fetch error: ${res.status}`);
-        return;
-    }
+		const data = await res.json();
 
-    const data = await res.json();
+		render.renderTableList(data);
+	}
 
-    render.renderAlbumList(data);
+	async function fetchTablesById() {
+		const res = await fetch("/api/Albums/2");
 
+		if (!res.ok || res.status !== 200) {
+			console.log(`Data fetch error: ${res.status}`);
+			return;
+		}
 
-}
+		console.log(res);
 
-async function fetchAlbumById() {
-    const res = await fetch('/api/albums/2');
+		const data = await res.json();
 
-    if (!res.ok || res.status !== 200) {
-        console.log(`Data fetch error: ${res.status}`);
-        return;
-    }
+		document.getElementById("root");
 
-    console.log(res);
+		console.log("Name of a Album #2: " + data.Title);
+	}
 
-    const data = await res.json();
+	async function fetchTablesByPage(page) {
+		const res = await fetch(`api/Albums/pagination/${page}`);
 
-    document.getElementById('root');
+		if (!res.ok || res.status !== 200) {
+			console.log(`Fetch error on page ${page}: ${res.status}`);
+		}
 
-    console.log('Name of a Album #2: ' + data.Title);
-}
+		const data = await res.json();
 
-async function fetchAlbumsByPage(page) {
+		render.renderTableList(data);
+	}
+};
+// run the following code after clicking the table name
 
-    const res = await fetch(`api/albums/pagination/${page}`);
+tablesContainer.onclick = function (event) {
+	let render = new Render();
+	let exactTable = event.target.textContent;
+	console.log("textContent: ", exactTable);
+	tableHeader.textContent = `${exactTable}`;
+	countAllTables();
+	fetchTablesByPage(1);
+	async function countAllTables() {
+		const res = await fetch(`/api/${exactTable}/count`);
 
-    if (!res.ok || res.status !== 200) {
-        console.log(`Fetch error on page ${page}: ${res.status}`);
-    }
+		if (!res.ok || res.status !== 200) {
+			console.log(`Data fetch error count: ${res.status}`);
+			return;
+		}
 
-    const data = await res.json();
+		const data = await res.json();
+		render.renderTotalQty(data, fetchTablesByPage);
+	}
+	/* 
+		fetch table list
 
-    render.renderAlbumList(data);
+*/
+	async function fetchTableList() {
+		const res = await fetch(`/api/${exactTable}`);
+
+		if (!res.ok || res.status !== 200) {
+			console.log(`Data fetch error fetch table: ${res.status}`);
+			return;
+		}
+
+		const data = await res.json();
+
+		render.renderTableList(data);
+	}
+	/* 
+		fetch table by id
+
+	*/
+	async function fetchTableById() {
+		const res = await fetch(`/api/${exactTable}/2`);
+
+		if (!res.ok || res.status !== 200) {
+			console.log(`Data fetch error: ${res.status}`);
+			return;
+		}
+
+		console.log(res);
+
+		const data = await res.json();
+
+		document.getElementById("root");
+		/* 
+		fetch table by page
+
+		*/
+		console.log("Name of a Album #2: " + data.Title);
+	}
+
+	async function fetchTablesByPage(page) {
+		const res = await fetch(`api/${exactTable}/pagination/${page}`);
+
+		if (!res.ok || res.status !== 200) {
+			console.log(`Fetch error on page ${page}: ${res.status}`);
+		}
+
+		const data = await res.json();
+
+		render.renderTableList(data);
+	}
 };

@@ -1,17 +1,16 @@
-const express = require('express');
+const express = require("express");
 
 const router = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('hello from API');
+router.get("/", (req, res) => {
+	res.send("hello from API");
 });
 
-router.use('/albums', require('./albums/routes'));
-router.use('/artists', require('./artists'));
-router.use('/genres', require('./genres'));
-router.use('/media-types', require('./media-types'));
-router.use('/playlists', require('./playlists'));
-router.use('/tracks', require('./tracks'));
-
+router.use("/Albums", require("./albums/routes"));
+router.use("/Artists", require("./artists"));
+router.use("/Genres", require("./genres"));
+router.use("/MediaTypes", require("./media-types"));
+router.use("/Playlists", require("./playlists"));
+router.use("/Tracks", require("./tracks"));
 
 module.exports = router;
