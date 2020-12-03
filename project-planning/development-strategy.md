@@ -42,7 +42,44 @@ Explore, edit, create, update, ... the chinook database
 
 ---
 
-## ...
+## 1. Albums list and items total quantity
+
+**As a user I want to see see index page with the list of albums and a total albums quantity**
+
+### REPO
+- Developed in branch `albums`
+- After passing the test the branch was merged to the `master`
+
+TASK A. JS Frontend:  
+- The service class `render` was developed to render the result of data fetch.
+
+TASK B. Backend: 
+- SQL queries were provided to get the the total quantity of albums, and the albums list.
+
+TASK C: CSS
+- Bootstrap 4 was used to style the result page.
+
+TASK D: HTML
+- Table structure elements added for the result view
+
+
+## 2. Albums list pagination
+
+**As a user I want to use pagination to move across the albums list**
+
+
+### REPO
+- Developed in branch `pagination`
+- After passing the test the branch was merged to the `master`
+
+TASK A. JS Frontend:  
+- Functions which provide pagination rendering and counting were added to the service class `render`
+
+TASK B. Backend: 
+- SQL queries were provided to get the the total quantity of albums, and the albums list.
+
+TASK D: HTML
+- The HTML 5 elements were added for the result view
 
 ## 3.Render-All-Tables
 
